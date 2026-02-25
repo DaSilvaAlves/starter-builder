@@ -1,0 +1,23 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    @apply bg-[#0a0a0a] text-white;
+  }
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  @apply bg-[#1a1a1a];
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  @apply bg-[#333] border-2 border-[#1a1a1a];
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  @apply bg-[#eeff00];
+}
