@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Palette, Layout, Cpu, Terminal, Zap, Shield } from 'lucide-react';
 import './index.css';
 import { saveDesignTokens } from './supabaseClient';
+import PipelineNav from './components/PipelineNav';
 
 // ── Types ──────────────────────────────────────────────────────────────────
 
@@ -294,6 +295,9 @@ REGRAS TÉCNICAS
       <footer className="app-footer">
         Starter Builder v2.0 // Imersão IA Portugal // CSS puro sem Tailwind
       </footer>
+
+      <div style={{ height: '160px' }} />
+      <PipelineNav />
     </div>
   );
 };
