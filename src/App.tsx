@@ -27,7 +27,7 @@ interface DesignTokens {
 
 // ── Constants ──────────────────────────────────────────────────────────────
 
-const PROMPT_OPTIMIZER_URL = 'http://localhost:5193';
+const PROMPT_OPTIMIZER_URL = import.meta.env.VITE_PROMPT_OPTIMIZER_URL || 'http://localhost:5193';
 
 const COLOR_PALETTES: Record<string, DesignTokens['colorScheme']> = {
   brutalist: { background: '#000000', foreground: '#ffffff', accent: '#EEFF00' },
