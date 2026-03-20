@@ -1,23 +1,199 @@
-@import "tailwindcss";
+/* ── Brutalista Theme — CSS puro sem Tailwind ── */
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700;900&display=swap');
 
-@layer base {
-  body {
-    @apply bg-[#0a0a0a] text-white;
-  }
+:root {
+  --color-bg: #0a0a0a;
+  --color-card: #141414;
+  --color-card-inner: #1a1a1a;
+  --color-accent: #eeff00;
+  --color-accent-hover: #d4e600;
+  --color-fg: #ffffff;
+  --color-muted: #a0a0a0;
+  --color-border: #333333;
+  --color-border-hover: #555555;
+  --color-green: #4ade80;
+  --shadow-card: 8px 8px 0px var(--color-accent);
+  --shadow-btn: 6px 6px 0px #000000;
+  --shadow-option-active: 4px 4px 0px var(--color-accent);
+  --font: 'Space Grotesk', sans-serif;
 }
 
-.custom-scrollbar::-webkit-scrollbar {
-  width: 8px;
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--color-bg);
+  color: var(--color-fg);
+  font-family: var(--font);
+  min-height: 100vh;
+  padding: 16px;
 }
 
-.custom-scrollbar::-webkit-scrollbar-track {
-  @apply bg-[#1a1a1a];
+@media (min-width: 768px) { body { padding: 40px; } }
+
+.app-wrapper {
+  max-width: 900px;
+  margin: 0 auto;
+  background: var(--color-card);
+  border: 2px solid var(--color-fg);
+  box-shadow: var(--shadow-card);
+  padding: 24px;
 }
 
-.custom-scrollbar::-webkit-scrollbar-thumb {
-  @apply bg-[#333] border-2 border-[#1a1a1a];
+@media (min-width: 768px) { .app-wrapper { padding: 40px; } }
+
+/* Header */
+.app-header { margin-bottom: 40px; }
+.app-title {
+  font-size: clamp(2.5rem, 8vw, 4rem);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+.app-subtitle {
+  color: var(--color-accent);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-top: 8px;
 }
 
-.custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  @apply bg-[#eeff00];
+/* Section */
+.section { margin-bottom: 40px; }
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 1.1rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: 12px;
+  margin-bottom: 24px;
 }
+.section-title svg { color: var(--color-accent); }
+
+/* Grid */
+.grid-3 { display: grid; grid-template-columns: 1fr; gap: 20px; }
+.grid-2 { display: grid; grid-template-columns: 1fr; gap: 20px; }
+@media (min-width: 480px) {
+  .grid-3 { grid-template-columns: 1fr 1fr; }
+  .grid-2 { grid-template-columns: 1fr 1fr; }
+}
+@media (min-width: 768px) { .grid-3 { grid-template-columns: 1fr 1fr 1fr; } }
+
+/* Option Card */
+.option-card {
+  background: var(--color-card-inner);
+  border: 2px solid var(--color-border);
+  padding: 20px;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.1s, box-shadow 0.1s, transform 0.1s;
+  color: var(--color-fg);
+  font-family: var(--font);
+  width: 100%;
+}
+.option-card:hover { border-color: var(--color-border-hover); }
+.option-card.active {
+  background: #222222;
+  border-color: var(--color-accent);
+  box-shadow: var(--shadow-option-active);
+  transform: translate(-2px, -2px);
+}
+.option-card h3 {
+  font-size: 1rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.option-card p {
+  font-size: 0.85rem;
+  color: var(--color-muted);
+  line-height: 1.4;
+}
+
+/* Buttons */
+.btn-generate {
+  width: 100%;
+  padding: 20px;
+  background: var(--color-accent);
+  color: #000000;
+  border: 4px solid #000000;
+  font-size: 1.4rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  cursor: pointer;
+  font-family: var(--font);
+  box-shadow: var(--shadow-btn);
+  transition: background 0.1s, box-shadow 0.1s, transform 0.1s;
+}
+.btn-generate:hover { background: var(--color-accent-hover); }
+.btn-generate:active { transform: translate(2px, 2px); box-shadow: none; }
+
+.btn-action {
+  width: 100%;
+  padding: 16px;
+  border: 2px solid var(--color-accent);
+  background: transparent;
+  color: var(--color-accent);
+  font-size: 1rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  cursor: pointer;
+  font-family: var(--font);
+  margin-top: 12px;
+  transition: background 0.1s, color 0.1s;
+}
+.btn-action:hover { background: var(--color-accent); color: #000; }
+.btn-action.success { background: #16a34a; border-color: #16a34a; color: #fff; }
+.btn-action.send { border-color: #6366f1; color: #6366f1; }
+.btn-action.send:hover { background: #6366f1; color: #fff; }
+.btn-action.export { border-color: #22c55e; color: #22c55e; }
+.btn-action.export:hover { background: #22c55e; color: #000; }
+
+/* Output Area */
+.output-box {
+  margin-top: 40px;
+  background: #000;
+  border: 2px dashed var(--color-accent);
+  padding: 24px;
+  animation: fadeIn 0.4s ease;
+}
+.output-box-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 1.1rem;
+  font-weight: 900;
+  color: var(--color-accent);
+  margin-bottom: 20px;
+}
+.output-pre {
+  background: #0f172a;
+  border: 1px solid var(--color-border);
+  padding: 16px;
+  max-height: 400px;
+  overflow-y: auto;
+  font-family: monospace;
+  font-size: 0.8rem;
+  color: var(--color-green);
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+.output-pre::-webkit-scrollbar { width: 8px; }
+.output-pre::-webkit-scrollbar-track { background: #1a1a1a; }
+.output-pre::-webkit-scrollbar-thumb { background: var(--color-border); border: 2px solid #1a1a1a; }
+.output-pre::-webkit-scrollbar-thumb:hover { background: var(--color-accent); }
+
+/* Footer */
+.app-footer {
+  margin-top: 40px;
+  text-align: center;
+  color: #444;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+}
+
+@keyframes fadeIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
