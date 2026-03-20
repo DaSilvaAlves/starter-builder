@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Palette, Layout, Cpu, Terminal, Zap, Shield } from 'lucide-react';
 import './index.css';
-import { saveDesignTokens } from './supabaseClient';
+import { saveDesignTokens, updatePipelineProgress } from './supabaseClient';
 import PipelineNav from './components/PipelineNav';
 
 // ── Types ──────────────────────────────────────────────────────────────────
@@ -72,6 +72,10 @@ const App: React.FC = () => {
   const [showPrompt, setShowPrompt] = useState(false);
   const [copied, setCopied] = useState(false);
   const [tokenId, setTokenId] = useState<string | null>(null);
+  const [studentEmail] = useState(() => {
+    const params = new URLSearchParams(window.location.search);
+    return params.get('email') || '';
+  });
 
   const toggleFeature = (f: string) => {
     setFeatures(prev =>
@@ -181,7 +185,8 @@ REGRAS TÉCNICAS
 
     const encodedTokens   = encodeURIComponent(JSON.stringify(tokens));
     const encodedBriefing = encodeURIComponent(JSON.stringify(briefing));
-    window.open(`${PROMPT_OPTIMIZER_URL}?tokens=${encodedTokens}&briefing=${encodedBriefing}`, '_blank');
+    const emailParam = studentEmail ? `&email=${encodeURIComponent(studentEmail)}` : '';
+    window.open(`${PROMPT_OPTIMIZER_URL}?tokens=${encodedTokens}&briefing=${encodedBriefing}${emailParam}`, '_blank');
   };
 
   const handleExportTokens = () => {
@@ -251,6 +256,10 @@ REGRAS TÉCNICAS
             css_directives: tokens.cssDirectives,
           });
           if (saved?.id) setTokenId(saved.id);
+          // Pipeline progress tracking
+          if (studentEmail) {
+            void updatePipelineProgress(studentEmail, 3, { design_tokens: tokens });
+          }
         }}>
           Gerar Prompt Premium 🚀
         </button>
@@ -297,7 +306,7 @@ REGRAS TÉCNICAS
       </footer>
 
       <div style={{ height: '160px' }} />
-      <PipelineNav />
+      <PipelineNav email={studentEmail} />
     </div>
   );
 };
